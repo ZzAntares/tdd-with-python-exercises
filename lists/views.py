@@ -1,14 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from lists.models import Item
 
 
 def home_page(request):
-    # TODO: Avoid saving empty items in every request
-    item = Item()
-    item.text = request.POST.get('item_text', '')
-    item.save()
+    new_item_text = request.POST.get('item_text', '')
+
+    if request.method == 'POST':
+        Item.objects.create(text=new_item_text)
+        return redirect('/')
 
     return render(
         request,
-        'home.html',
-        {'new_item_text': request.POST.get('item_text', '')})
+        'home.html')
