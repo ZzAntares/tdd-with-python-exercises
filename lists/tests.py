@@ -19,12 +19,16 @@ class HomePageTest(TestCase):
 
         self.assertTrue(response.content.decode(), expected_html)
 
+    # TODO: Code smell: POST test is too long?
     def test_home_page_can_save_a_POST_request(self):
         request = HttpRequest()
         request.method = 'POST'
         request.POST['item_text'] = 'A new list item'
 
         response = home_page(request)
+        self.assertEqual(Item.objects.count(), 1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text, 'A new list item')
 
         self.assertIn('A new list item', response.content.decode())
         expected_html = render_to_string(
@@ -46,7 +50,7 @@ class ItemModelTest(TestCase):
         second_item.save()
 
         saved_items = Item.objects.all()
-        self.assertEquals(saved_items.count(), 2)
+        self.assertEqual(saved_items.count(), 2)
 
         first_saved_item = saved_items[0]
         second_saved_item = saved_items[1]
