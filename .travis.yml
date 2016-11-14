@@ -26,6 +26,7 @@ before_install:
 install:
   - pip install flake8 selenium
   - pip install django==1.8
+  - nohup python manage.py runserver &
 
 script:
   - flake8
