@@ -30,4 +30,3 @@ install:
 script:
   - flake8
   - python manage.py test
-  - python manage.py test functional_tests
