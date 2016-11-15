@@ -24,9 +24,15 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 install:
-  - pip install flake8 selenium
+  - pip install flake8 selenium coverage coveralls
   - pip install django==1.8
 
 script:
   - flake8
   - python manage.py test
+  - coverage run manage.py test lists
+  - coverage report
+  - coverage html -d coverage
+
+after_script:
+  - coveralls

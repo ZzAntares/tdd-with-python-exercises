@@ -1,0 +1,11 @@
+[run]
+branch = True
+
+omit =
+    *site-packages*
+    */migrations/*.py
+    manage.py
+
+[html]
+directory = coverage
+title = TDD with Python Coverage Report

@@ -122,4 +122,4 @@ class NewItemTest(TestCase):
             '/lists/{}/add_item'.format(correct_list.id),
             data={'item_text': 'A new item for an existing list'})
 
-        self.assertRedirects(response, 'lists/{}/'.format(correct_list.id))
+        self.assertRedirects(response, '/lists/{}/'.format(correct_list.id))
