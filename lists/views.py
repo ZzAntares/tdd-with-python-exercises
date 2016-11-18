@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 
-from lists.forms import ItemForm
+from lists.forms import ExistingListItemForm, ItemForm
 from lists.models import List
 
 
@@ -10,13 +10,13 @@ def home_page(request):
 
 def view_list(request, list_id):
     items_list = List.objects.get(id=list_id)
-    form = ItemForm()
+    form = ExistingListItemForm(for_list=items_list)
 
     if request.method == 'POST':
-        form = ItemForm(data=request.POST)
+        form = ExistingListItemForm(for_list=items_list, data=request.POST)
 
         if form.is_valid():
-            form.save(for_list=items_list)
+            form.save()
             return redirect(items_list)
 
     return render(
